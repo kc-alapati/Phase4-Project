@@ -1,5 +1,5 @@
 # Use a base image with Java and Maven installed
-FROM maven:3.6.3-openjdk-17 AS build
+FROM maven:3.6.3-openjdk-11 AS build
 
 # Set working directory
 WORKDIR /app
@@ -17,7 +17,7 @@ COPY src ./src
 RUN mvn package -DskipTests
 
 # Create the final Docker image
-FROM openjdk:17
+FROM openjdk:11
 
 # Set working directory
 WORKDIR /app
