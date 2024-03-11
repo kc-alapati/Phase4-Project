@@ -1,4 +1,4 @@
-# Use a base image with Java and Maven installed
+# Use a base image with Maven installed to build the application
 FROM maven:3.6.3-openjdk-11 AS build
 
 # Set working directory
@@ -16,7 +16,7 @@ COPY src ./src
 # Build the application
 RUN mvn package -DskipTests
 
-# Create the final Docker image
+# Create the final Docker image with OpenJDK
 FROM openjdk:11
 
 # Set working directory
@@ -28,7 +28,6 @@ COPY --from=build /app/target/*.jar ./app.jar
 # Expose the port
 EXPOSE 9090
 
-#Configured My MYSQL container Password
 # Define environment variables for MySQL connection
 ENV SPRING_DATASOURCE_URL=jdbc:mysql://mysql_container:3306/phaseendproject
 ENV SPRING_DATASOURCE_USERNAME=root
